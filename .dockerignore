@@ -1,0 +1,12 @@
+﻿.git
+.gitignore
+.venv
+__pycache__
+*.py[cod]
+finetuning
+rules
+skills
+workflows
+AGENTS.md
+GEMINI.md
+GUIA_WINDOWS.md

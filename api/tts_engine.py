@@ -159,7 +159,8 @@ class ToneCloner:
                 tau=tau,
             )
             out_buf = io.BytesIO()
-            torchaudio.save(out_buf, wav_converted, sr, format="wav")
+            import soundfile as sf
+            sf.write(out_buf, wav_converted.squeeze().cpu().numpy(), sr, format="WAV")
             out_buf.seek(0)
             return out_buf
         except Exception as e:

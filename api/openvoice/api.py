@@ -118,6 +118,24 @@ class ToneColorConverter(OpenVoiceBaseClass):
 
 
 
+    @staticmethod
+    def _read_audio(item, target_sr=22050):
+        if isinstance(item, torch.Tensor):
+            return item, target_sr
+        if hasattr(item, "seek"):
+            item.seek(0)
+        try:
+            data, sr = soundfile.read(item, dtype="float32")
+            wav = torch.from_numpy(data)
+            if wav.ndim == 1:
+                wav = wav.unsqueeze(0)
+            elif wav.ndim == 2:
+                wav = wav.t()
+            return wav, sr
+        except Exception:
+            import torchaudio
+            return torchaudio.load(item)
+
     def extract_se(self, ref_wav_list, se_save_path=None):
         import torchaudio
         if isinstance(ref_wav_list, (str, os.PathLike)):
@@ -128,12 +146,7 @@ class ToneColorConverter(OpenVoiceBaseClass):
         gs = []
         
         for item in ref_wav_list:
-            if isinstance(item, (str, os.PathLike)):
-                wav, sr = torchaudio.load(str(item))
-            elif isinstance(item, torch.Tensor):
-                wav, sr = item, hps.data.sampling_rate
-            else:
-                wav, sr = torchaudio.load(item)
+            wav, sr = self._read_audio(item, hps.data.sampling_rate)
 
             if wav.shape[0] > 1:
                 wav = wav.mean(dim=0, keepdim=True)
@@ -159,12 +172,7 @@ class ToneColorConverter(OpenVoiceBaseClass):
         import torchaudio
         hps = self.hps
 
-        if isinstance(audio_src, (str, os.PathLike)):
-            wav, sr = torchaudio.load(str(audio_src))
-        elif isinstance(audio_src, torch.Tensor):
-            wav, sr = audio_src, hps.data.sampling_rate
-        else:
-            wav, sr = torchaudio.load(audio_src)
+        wav, sr = self._read_audio(audio_src, hps.data.sampling_rate)
 
         if wav.shape[0] > 1:
             wav = wav.mean(dim=0, keepdim=True)

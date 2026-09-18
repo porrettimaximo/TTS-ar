@@ -1,7 +1,7 @@
 voice_id,gender,name,description
-0,female,daniela,"Paciente Femenina Adulta (Voz clara, tono medio)"
-1,male,martin,"Paciente Masculino Adulto (Voz masculina natural, tono medio-grave)"
-2,female,marta,"Paciente Femenina Anciana / Adulta Mayor (Tono suave, ritmo pausado)"
-3,male,roberto,"Paciente Masculino Anciano / Adulto Mayor (Tono grave, habla pausada y carrasposa)"
-4,female,sofia,"Paciente Femenina Joven (Tono ágil, timbre claro)"
-5,male,lucas,"Paciente Masculino Joven (Tono juvenil, ritmo dinámico)"
+0,female,daniela,"Voz Femenina Adulta (Daniela • es_AR)"
+1,male,martin,"Voz Masculina Adulta (Martín • Clonada con tu audio)"
+2,female,marta,"Voz Femenina Anciana (Marta • Adulta Mayor)"
+3,male,roberto,"Voz Masculina Anciana (Roberto • Adulto Mayor)"
+4,female,sofia,"Voz Femenina Joven (Sofía)"
+5,male,lucas,"Voz Masculina Joven (Lucas)"

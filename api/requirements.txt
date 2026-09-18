@@ -1,8 +1,10 @@
+﻿--extra-index-url https://download.pytorch.org/whl/cpu
 fastapi>=0.110
 uvicorn[standard]>=0.29
 piper-tts>=1.7.0
 onnxruntime>=1.18.0
 onnx>=1.16.0
+torch
 torchaudio
 numpy
 pandas

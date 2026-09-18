@@ -334,17 +334,19 @@
         const res = await fetch('/audio/voices');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const voices = await res.json();
-        voiceSelect.innerHTML = voices.map(v => 
-          `<option value="${v.id}">${v.description || v.name}</option>`
-        ).join('');
+        voiceSelect.innerHTML = voices.map(v => {
+          const isCloned = v.id === 1 ? ' ⭐ (Clonada con tu audio)' : '';
+          const nameStr = v.name ? ` • ${v.name.charAt(0).toUpperCase() + v.name.slice(1)}` : '';
+          return `<option value="${v.id}">[ID ${v.id}${nameStr}] ${v.description}${isCloned}</option>`;
+        }).join('');
       } catch (err) {
         voiceSelect.innerHTML = `
-          <option value="0">Paciente Femenina Adulta (Daniela)</option>
-          <option value="1">Paciente Masculino Adulto (Martín)</option>
-          <option value="2">Paciente Femenina Anciana (Marta)</option>
-          <option value="3">Paciente Masculino Anciano (Roberto)</option>
-          <option value="4">Paciente Femenina Joven (Sofía)</option>
-          <option value="5">Paciente Masculino Joven (Lucas)</option>
+          <option value="0">[ID 0 • Daniela] Voz Femenina Adulta (Daniela)</option>
+          <option value="1" selected>[ID 1 • Martín] Voz Masculina (Clonada con tu audio) ⭐</option>
+          <option value="2">[ID 2 • Marta] Voz Femenina Anciana (Marta)</option>
+          <option value="3">[ID 3 • Roberto] Voz Masculina Anciana (Roberto)</option>
+          <option value="4">[ID 4 • Sofía] Voz Femenina Joven (Sofía)</option>
+          <option value="5">[ID 5 • Lucas] Voz Masculina Joven (Lucas)</option>
         `;
       }
     }

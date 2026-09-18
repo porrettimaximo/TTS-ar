@@ -6,9 +6,12 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 import torch.utils.data
-import numpy as np
-import librosa
-from librosa.filters import mel as librosa_mel_fn
+try:
+    import librosa
+    from librosa.filters import mel as librosa_mel_fn
+except ImportError:
+    librosa = None
+    librosa_mel_fn = None
 
 logger = logging.getLogger("openvoice.mel")
 

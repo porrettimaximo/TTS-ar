@@ -1,0 +1,26 @@
+﻿services:
+  tts:
+    image: ${TTS_IMAGE:-medsim-tts:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medsim-tts
+    restart: unless-stopped
+    ports:
+      - "${TTS_HOST_PORT:-8001}:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      medsim_net:
+        aliases:
+          - tts
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/audio/voices"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+networks:
+  medsim_net:
+    name: medsim_medsim_net
